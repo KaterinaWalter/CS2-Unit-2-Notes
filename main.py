@@ -26,3 +26,20 @@ birth_months = {'Kevin':'Mar',
                 'Maia':'Apr'}
 birth_series = pd.Series(birth_months)
 print(birth_series)
+
+# Create a DataFrame from a single Series object
+df = pd.DataFrame(birth_series, columns=['Birth Month'])
+print(df) # DataFrame objects have column headers!
+
+# Load tabular data from a CSV file into a DataFrame
+pokemon_df = pd.read_csv('pokemon_data.csv')
+print(pokemon_df) # [800 rows x 12 cols]
+print(pokemon_df.columns) # display col headers
+
+# Column headers can be used to access individual columns
+print(pokemon_df['Name'])
+# Shortcut using DOT OPERATOR notation
+print(pokemon_df.HP)
+# Shortcut does not work for all column names...
+#print(pokemon_df.Type 1)
+print(pokemon_df['Type 1'])
