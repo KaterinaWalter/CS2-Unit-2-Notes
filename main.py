@@ -6,7 +6,7 @@ import pandas as pd
 month = pd.Series(['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'])
 print(month)
 # Series have attributes values & index
-print(month.values) # looks like a list
+print(month.values) # looks like a list 
 print(month.index) # shows the range of nums
 
 # You can set the index explicitly!!!
@@ -14,7 +14,7 @@ month_list = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oc
 better_month = pd.Series(month_list, index=[1,2,3,4,5,6,7,8,9,10,11,12])
 
 # Access value at index
-print(f'My birthday is in {better_month[1]}')
+print(f'My birthday is in {better_month[1]}') 
 
 # Can also think of Series like a simple dictionary with key:value pairs
 birth_months = {'Kevin':'Mar',
@@ -43,3 +43,30 @@ print(pokemon_df.HP)
 # Shortcut does not work for all column names...
 #print(pokemon_df.Type 1)
 print(pokemon_df['Type 1'])
+
+# Add a new column 
+# Fill values with a calculation
+pokemon_df['Attack Ratio'] = pokemon_df['Attack'] / pokemon_df['Sp. Atk']
+
+# Examples of getting info about a DataFrame
+print( pokemon_df.head(10) ) # show first n rows
+print( pokemon_df.sample(3) ) # show random sample of n rows
+print( pokemon_df.shape ) # returns a tuple ( rows, cols )
+print( pokemon_df.columns ) # returns a list of column headers
+print( pokemon_df.info() ) # shows non-null count & dtypes
+print( pokemon_df.describe() ) # mean, std, min, max
+print( pokemon_df['Defense'].describe() ) # stats for a specific col
+print( pokemon_df['Type 1'].value_counts() ) # frequency of value counts
+
+# How to locate specific rows
+print( pokemon_df.loc[4] ) # gives you charmander
+
+# groupby function helps you isolate groups of entries
+print ( pokemon_df.groupby('Type 1')[[ 'HP', 'Speed'] ].mean() )
+print ( pokemon_df.groupby('Type 1').size().sort_values() ) # similar to .value_counts
+
+
+
+
+
+

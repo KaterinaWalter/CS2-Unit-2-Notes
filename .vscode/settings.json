@@ -1,5 +1,7 @@
 {
   "editor.inlayHints.enabled": "off",
+  "editor.parameterHints": false,
+  "editor.hover.enabled": false,
   "code-runner.showExecutionMessage": false,
   "code-runner.runInTerminal": true,
   "editor.wordWrap": "on"
