@@ -63,7 +63,42 @@ print( pokemon_df.loc[4] ) # gives you charmander
 
 # groupby function helps you isolate groups of entries
 print ( pokemon_df.groupby('Type 1')[[ 'HP', 'Speed'] ].mean() )
-print ( pokemon_df.groupby('Type 1').size().sort_values() ) # similar to .value_counts
+# similar to .value_counts
+print ( pokemon_df.groupby('Type 1').size().sort_values() ) 
+# Average combined stats by generation
+pokemon_df['Total'] = pokemon_df[ ['HP', 'Attack', 'Defense', 'Speed'] ].sum(axis=1)
+print( pokemon_df['Total'] )
+# Which generation has the strongest pokemon?
+print( pokemon_df.groupby('Generation')['Total'].mean() )
+# Compare legendary pokemon to non-legendary
+print( pokemon_df.groupby('Legendary')['Total'].mean() )
+
+# CONDITIONAL FILTERING
+
+# Select Pokemon with HP greater than 100
+# Pulling ROWS (entries) where the value in the 'HP' COLUMN > 100
+subset1 = pokemon_df[ pokemon_df['HP'] > 100 ]
+# Select Poison-type
+subset2 = pokemon_df[ pokemon_df['Type 1'] == 'Poison']
+# Compound operators -> AND is &, OR is | for Pandas
+# First condition: poison pokemon that are not also flying type
+# Second condition: AND before gen 5
+subset3 = subset2[ (subset2['Type 2'] != 'Flying') & (subset2['Generation'] < 5) ]
+print(subset3)
+
+# Select pokemon whose name contains "Mega"
+subset4 = pokemon_df[ pokemon_df['Name'].str.contains('Mega') ]
+print(subset4)
+
+# Exclude Legendary Pokemon
+subset5 = pokemon_df[ pokemon_df['Legendary'] == False ]
+# OR you could do the same thing like this:
+subset6 = pokemon_df[ ~pokemon_df['Legendary'] ]
+
+
+
+
+
 
 
 
