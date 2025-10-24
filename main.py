@@ -61,45 +61,40 @@ print( pokemon_df['Type 1'].value_counts() ) # frequency of value counts
 # How to locate specific rows
 print( pokemon_df.loc[4] ) # gives you charmander
 
-# groupby function helps you isolate groups of entries
-print ( pokemon_df.groupby('Type 1')[[ 'HP', 'Speed'] ].mean() )
-# similar to .value_counts
-print ( pokemon_df.groupby('Type 1').size().sort_values() ) 
-# Average combined stats by generation
+# GROUPBY function helps you isolate groups of entries
+print( pokemon_df.groupby('Type 1')[ ['HP','Speed'] ] )
+
+# Create a new column with a sum of stat values
 pokemon_df['Total'] = pokemon_df[ ['HP', 'Attack', 'Defense', 'Speed'] ].sum(axis=1)
 print( pokemon_df['Total'] )
-# Which generation has the strongest pokemon?
+
+# Use .groupby to identify average total stats by generation
 print( pokemon_df.groupby('Generation')['Total'].mean() )
-# Compare legendary pokemon to non-legendary
+
+# Look at average total stats for legendary pokemon instead
 print( pokemon_df.groupby('Legendary')['Total'].mean() )
 
 # CONDITIONAL FILTERING
+# pulling entries (rows) from the df that meet a condition
 
-# Select Pokemon with HP greater than 100
-# Pulling ROWS (entries) where the value in the 'HP' COLUMN > 100
-subset1 = pokemon_df[ pokemon_df['HP'] > 100 ]
-# Select Poison-type
-subset2 = pokemon_df[ pokemon_df['Type 1'] == 'Poison']
-# Compound operators -> AND is &, OR is | for Pandas
-# First condition: poison pokemon that are not also flying type
-# Second condition: AND before gen 5
-subset3 = subset2[ (subset2['Type 2'] != 'Flying') & (subset2['Generation'] < 5) ]
-print(subset3)
+# Select pokemon with high HP values
+subset1 = pokemon_df[ (pokemon_df['HP'] > 100) ]
+print(subset1)
+
+# Select Psychic-type pokemon only
+subset2 = pokemon_df[ (pokemon_df['Type 1'] == 'Psychic') ]
+# creates a smaller dataframe from the original one
+
+# Can also use MULTIPLE conditions (use the & for AND, the | for OR)
+subset3 = subset2[ (subset2['Type 2'] == 'Fairy') & (subset2['Sp. Atk'] > 50) ]
 
 # Select pokemon whose name contains "Mega"
 subset4 = pokemon_df[ pokemon_df['Name'].str.contains('Mega') ]
-print(subset4)
 
-# Exclude Legendary Pokemon
+# Exclude Legendary pokemon
 subset5 = pokemon_df[ pokemon_df['Legendary'] == False ]
-# OR you could do the same thing like this:
+# SHORTCUT with this ~ operator (NOT)
 subset6 = pokemon_df[ ~pokemon_df['Legendary'] ]
-
-
-
-
-
-
 
 
 
